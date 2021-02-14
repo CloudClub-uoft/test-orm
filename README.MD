@@ -3,14 +3,15 @@ OVERVIEW OF ORMs
 	-EFFICIENCY
 
 IDENTIFY USE CASES
-
-DATBASE MODELLING
+	- Large Complex Websites with lots of data
 
 OPTIMIZATION
+	-Faster more eficient queries.
 
 MIGRATIONS
+	-Changes to your database can be automated.
 
-ALL OF THESE LEAD TO ==> A ROBUST PLATFORM
+ALL OF THESE LEAD TO ==> A MORE ROBUST PLATFORM
 
 //ORM RESOURCES
 OVERVIWE: https://blog.yellowant.com/orm-rethinking-data-as-objects-8ddaa43b1410
