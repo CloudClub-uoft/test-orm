@@ -1,59 +1,44 @@
-const { sequelize, Member } = require('./sequelize')
+const { sequelize, Member, Post, Reply } = require('./sequelize')
 const faker = require('faker')
+var count = 5;
+var member_ids = [];
 
-
-// for (i = 0 ; i < 10; i++){
-
-//   Member.create({name: 'Eminem', bio: 'Hacker', email: 'abc@xyz.com'})  
-
-// }
-
-
-let foo = async function () {
-
-  let p = await Member.findOne({ where: { id: '10' } })  
-
-  if (p === null) {
-    console.log('Not found!');
-  } else {
-    console.log(p instanceof Member); // true
-    console.log(p.email); // 'My Title'
-    console.log(p.name);
-    console.log(p.bio)
-
+async function createMembers() {
+ 
+  // create some members.
+  for (i =0 ;i < count; i++){
+    //INSERT  INTO cloudclub.clubmembers VALUES (''.''.'')
+    const member = await Member.create({ name: faker.name.findName(), bio: faker.random.words(), email: faker.internet.email()  });
+    member_ids.push(member.id);
   }
-
-  p.name = "Katniss Everdeen";
-  await p.save();
 
 }
 
-foo();
+async function createPosts() {
+  
+  //create some posts and replies.
+  for (i =0 ;i < count; i++){    
+    const post = await Post.create({ body: faker.random.words(), subject: faker.random.words(), userid: member_ids[i] }); 
+    const reply = await Reply.create({ body: faker.random.words(), postid: post.id, userid: member_ids[i] }); 
+  }
+
+}
 
 
+async function createReplies() {
+  
+  //find replies by a userid  
+  for (i =0 ;i < count; i++){    
+    const found_reply = await Reply.findAll({where: {userid: member_ids[i]}});
+    console.log(found_reply);
+  }
 
+}
 
+async function main(){
+  await createMembers();
+  await createPosts();
+  await createReplies();  
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// for (i = 0; i < 100; i++) {
-
-//   var randomName = faker.name.findName(); 
-//   var randomSentence = faker.lorem.sentence(); 
-//   var randomEmail = faker.internet.email();
-//   Member.create({ name: randomName, bio: randomSentence, email: randomEmail });
-
-// }
+main();

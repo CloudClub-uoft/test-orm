@@ -1,22 +1,20 @@
 module.exports = (sequelize, type) => {
-	const Member = sequelize.define('clubmember', {
-		name: {
+	const Post = sequelize.define('forum', {
+		body: {
 			type: type.TEXT,
-		},
-		bio: {
-			type: type.TEXT,
-		},
-		id: {
+		},				    
+		postid: {
 			type: type.INTEGER,
 			autoIncrement: true,
 			primaryKey: true
 		},
-		email: {
-			type: type.TEXT
-		}
+		userid: {
+			type: type.INTEGER
+		},
+		subject: { type: type.TEXT }
 	}, {
 		freezeTableName: true
 	})
 	
-	return Member;
+	return Post;
 };

@@ -1,23 +1,27 @@
 const Sequelize = require('sequelize')
 const MemberModel = require('./models/member')
+const PostModel = require('./models/post')
+const ReplyModel = require('./models/reply')
 require('dotenv').config()
 
-var sequelize = new Sequelize('fake', process.env.DB_USER, process.env.DB_PASS, {
+var sequelize = new Sequelize('cloudclub', 'root', null, {
 
-	host: process.env.DB_HOST,
+	logging: console.log,
 	dialect: 'mysql',
 	define: { timestamps: false }
 
 });
 
 const Member = MemberModel(sequelize, Sequelize)
+const Post = PostModel(sequelize, Sequelize);
+const Reply = ReplyModel(sequelize, Sequelize);
 
 sequelize.sync({ force: false })
 	.then(() => {
-		console.log(`Database & tables created!`)
+		console.log(`Tables initalised!`)
 	})
 
 module.exports = {
-	Member, sequelize
+ Reply, Post, Member, sequelize
 }
 
